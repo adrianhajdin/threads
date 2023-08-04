@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache";
 
 import { connectToDB } from "../mongoose";
 
-import User from "@/mongodb/user.model";
-import Thread from "@/mongodb/thread.model";
-import Community from "@/mongodb/community.model";
+import User from "../models/user.model";
+import Thread from "../models/thread.model";
+import Community from "../models/community.model";
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -48,11 +48,14 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   return { posts, isNext };
 }
 
-export async function createThread(
+interface Params {
   text: string,
   author: string,
-  communityId: string | null, // Nullable communityId to indicate personal account
-  path: string
+  communityId: string | null,
+  path: string,
+}
+
+export async function createThread({ text, author, communityId, path }: Params
 ) {
   try {
     connectToDB();

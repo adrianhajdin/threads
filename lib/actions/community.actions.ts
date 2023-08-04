@@ -2,9 +2,9 @@
 
 import { FilterQuery, SortOrder } from "mongoose";
 
-import Community from "@/mongodb/community.model";
-import Thread from "@/mongodb/thread.model";
-import User from "@/mongodb/user.model";
+import Community from "../models/community.model";
+import Thread from "../models/thread.model";
+import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 

@@ -3,9 +3,9 @@
 import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
 
-import Community from "@/mongodb/community.model";
-import Thread from "@/mongodb/thread.model";
-import User from "@/mongodb/user.model";
+import Community from "../models/community.model";
+import Thread from "../models/thread.model";
+import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
@@ -22,14 +22,23 @@ export async function fetchUser(userId: string) {
   }
 }
 
-export async function updateUser(
-  username: string,
-  name: string,
-  bio: string,
-  image: string,
-  userId: string,
-  path: string
-): Promise<void> {
+interface Params {
+  userId: string;
+  username: string;
+  name: string;
+  bio: string;
+  image: string;
+  path: string;
+}
+
+export async function updateUser({
+  userId,
+  bio,
+  name,
+  path,
+  username,
+  image,
+}: Params): Promise<void> {
   try {
     connectToDB();
 
