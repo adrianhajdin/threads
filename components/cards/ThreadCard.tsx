@@ -41,9 +41,8 @@ function ThreadCard({
 }: Props) {
   return (
     <article
-      className={`flex w-full flex-col rounded-xl ${
-        isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
-      }`}
+      className={`flex w-full flex-col rounded-xl ${isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
+        }`}
     >
       <div className='flex items-start justify-between'>
         <div className='flex w-full flex-1 flex-row gap-4'>
@@ -126,14 +125,19 @@ function ThreadCard({
       {!isComment && comments.length > 0 && (
         <div className='ml-1 mt-3 flex items-center gap-2'>
           {comments.slice(0, 2).map((comment, index) => (
-            <Image
+            <div
               key={index}
-              src={comment.author.image}
-              alt={`user_${index}`}
-              width={24}
-              height={24}
-              className={`${index !== 0 && "-ml-5"} rounded-full object-cover`}
-            />
+              className={`relative overflow-hidden rounded-full ${index !== 0 ? "-ml-5" : ""}`}
+              style={{ width: '24px', height: '24px' }}
+            >
+              <Image
+                src={comment.author.image}
+                alt={`user_${index}`}
+                layout='fill'
+                objectFit='cover'
+                className='rounded-full'
+              />
+            </div>
           ))}
 
           <Link href={`/thread/${id}`}>
